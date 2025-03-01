@@ -1,0 +1,9 @@
+.header > h1{
+  font-family: 'Pretendard-Regular';
+  font-size: 7.15em;
+  font-weight: 700;
+  width: fit-content;
+  margin-inline: auto;
+  margin-block: 50px;
+  color: #48cae4;
+}

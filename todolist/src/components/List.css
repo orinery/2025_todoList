@@ -1,0 +1,30 @@
+.List{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0PX 10px;
+
+  .searchBar{
+    font-family: 'Pretendard-Regular';
+    margin-block-start: 40px;
+    border: none;
+    border-bottom: 1px solid rgb(220,220,220);
+    padding: 10px 0px;
+
+    &:is(:focus){
+      outline: none;
+      border-bottom: 1px solid #00b4d8;
+    }
+  }
+
+  .todos_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .done{
+      text-decoration: line-through;
+      color: #00b4d8;
+    }
+  }
+}

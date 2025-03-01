@@ -1,0 +1,31 @@
+.editor{
+  display: flex;
+  height: 50px;
+  gap: 10px;
+
+  input{
+    font-family: 'Pretendard-Regular';
+    width: 100%;
+    font-size: 1em;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(245, 245, 245);
+    color: #444;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    &:is(:focus){
+      outline: 2px solid #0bc5ea;
+    }
+  }
+  button {
+    cursor: pointer;
+    font-family: 'Pretendard-Regular';
+    width: 80px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background: linear-gradient(180deg,#22d2f6, #0bc5ea, #00b5d9);
+    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.2);
+  }
+}

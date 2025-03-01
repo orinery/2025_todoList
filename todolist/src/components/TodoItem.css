@@ -1,0 +1,53 @@
+.todoItem{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgb(240,240,240);
+  
+  /* input {
+    width: 20px;
+    accent-color:  #444;
+  } */
+  
+  .editing, .content{
+    color: #444;
+    font-size: 20px;
+    font-family: 'Pretendard-Regular';
+    flex: 1;
+  }
+  .editing{
+    color: #ff8b2c;
+    border: none;
+    /* cursor: progress; */
+    padding: 0px;
+    &:is(:focus){
+      outline: 1px solid rgb(245, 245, 245);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+  }
+  .content.done{
+    text-decoration: line-through;
+    color: #999;
+  }
+
+  .date{
+    font-size: 14px;
+    color: gray;
+  }
+
+  button{
+    width: 24px;
+    cursor: pointer;
+    color: gray;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    
+    svg{
+      margin: 0 auto;
+    }
+  }
+
+}
