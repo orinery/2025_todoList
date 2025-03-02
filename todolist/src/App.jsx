@@ -20,7 +20,7 @@ const mockData = [
   {
     id: 2,
     isDone: false,
-    content: "내용 수정시에는 오른쪽 펜 클릭",
+    content: "내용 수정시에는 오른쪽 펜 클릭!",
     date: new Date().getTime(),
   },
 ];

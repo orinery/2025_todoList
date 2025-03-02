@@ -43,6 +43,12 @@ const TodoItem = ({
     }
   };
 
+  const onBlur = () => {
+    if (isEditing) {
+      onToggleEdit();
+    }
+  };
+
   useEffect(() => {
     if (isEditing) {
       inputRef.current.focus();
@@ -59,6 +65,7 @@ const TodoItem = ({
           value={editContent}
           onChange={onChangeEditContent}
           onKeyDown={onKeyDown}
+          onBlur={onBlur}
         />
       ) : (
         <div

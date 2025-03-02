@@ -16,6 +16,10 @@
     &:is(:focus){
       outline: 2px solid #0bc5ea;
     }
+
+    &::placeholder{
+      text-align: center;
+    }
   }
   button {
     cursor: pointer;

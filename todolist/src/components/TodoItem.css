@@ -23,7 +23,7 @@
     padding: 0px;
     &:is(:focus){
       outline: 1px solid rgb(245, 245, 245);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
   }
   .content.done{

@@ -32,7 +32,7 @@ const Editor = ({ onCreate }) => {
         onKeyDown={onKeydown}
         onChange={onChangeContent}
         type="text"
-        placeholder="Todo를 입력해주세요."
+        placeholder="할 일을 입력해주세요"
       />
       <button onClick={onsubmit}>추가</button>
     </div>
