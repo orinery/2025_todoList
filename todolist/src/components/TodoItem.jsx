@@ -1,18 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo, useContext } from "react";
+import { TodoDispatchContext } from "../App";
 import "./TodoItem.css";
 
-const TodoItem = ({
-  id,
-  isDone,
-  content,
-  date,
-  onUpdate,
-  onDelete,
-  onEdit,
-}) => {
+const TodoItem = ({ id, isDone, content, date }) => {
+  const { onUpdate, onDelete, onEdit } = useContext(TodoDispatchContext);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(content);
   const inputRef = useRef(null);
@@ -85,4 +79,4 @@ const TodoItem = ({
   );
 };
 
-export default TodoItem;
+export default memo(TodoItem);

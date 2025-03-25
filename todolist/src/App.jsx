@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
 import List from "./components/List";
-import { useState, useRef } from "react";
+import { useRef, useReducer, useCallback, useMemo, createContext } from "react";
 
 const mockData = [
   {
@@ -24,51 +24,81 @@ const mockData = [
     date: new Date().getTime(),
   },
 ];
+function reducer(state, action) {
+  switch (action.type) {
+    case "CREATE":
+      return [action.todo, ...state];
+    case "UPDATE":
+      return state.map((item) =>
+        item.id === action.targetId ? { ...item, isDone: !item.isDone } : item
+      );
+    case "DELETE":
+      return state.filter((item) => item.id !== action.targetId);
+    case "EDIT":
+      return state.map((item) =>
+        item.id === action.targetId
+          ? { ...item, content: action.newContent }
+          : item
+      );
+    default:
+      return state;
+  }
+}
+
+export const TodoStateContext = createContext();
+export const TodoDispatchContext = createContext();
 
 function App() {
-  const [todos, setTodos] = useState(mockData);
+  const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
 
-  const onCreate = (content) => {
-    const newTodo = {
-      id: idRef.current++,
-      isDone: false,
-      content: content,
-      date: new Date().getTime(),
-    };
-    setTodos([newTodo, ...todos]);
-  };
+  const onCreate = useCallback((content) => {
+    dispatch({
+      type: "CREATE",
+      todo: {
+        id: idRef.current++,
+        isDone: false,
+        content: content,
+        date: new Date().getTime(),
+      },
+    });
+  }, []);
 
-  const onUpdate = (targetId) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo
-      )
-    );
-  };
+  const onUpdate = useCallback((targetId) => {
+    dispatch({
+      type: "UPDATE",
+      targetId: targetId,
+    });
+  }, []);
 
-  const onDelete = (targetId) => {
-    setTodos(todos.filter((todo) => todo.id !== targetId));
-  };
+  const onDelete = useCallback((targetId) => {
+    dispatch({
+      type: "DELETE",
+      targetId: targetId,
+    });
+  }, []);
 
-  const onEdit = (targetId, newContent) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === targetId ? { ...todo, content: newContent } : todo
-      )
-    );
-  };
+  const onEdit = useCallback((targetId, newContent) => {
+    dispatch({
+      type: "EDIT",
+      targetId: targetId,
+      newContent: newContent,
+    });
+  }, []);
+
+  const memoizedDispatch = useMemo(() => {
+    return { onCreate, onUpdate, onDelete, onEdit };
+  }, [onCreate, onUpdate, onDelete, onEdit]);
 
   return (
     <div className="App">
       <Header />
-      <Editor onCreate={onCreate} />
-      <List
-        todos={todos}
-        onUpdate={onUpdate}
-        onDelete={onDelete}
-        onEdit={onEdit}
-      />
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={memoizedDispatch}>
+          <Editor />
+          <List />
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   );
 }
